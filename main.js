@@ -2,7 +2,7 @@ import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-// Setup
+// Main Screen Engine Set
 
 const scene = new THREE.Scene();
 
@@ -19,7 +19,7 @@ camera.position.setX(-3);
 
 renderer.render(scene, camera);
 
-// Torus
+// Declare to Torus
 
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
 const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
@@ -27,7 +27,7 @@ const torus = new THREE.Mesh(geometry, material);
 
 scene.add(torus);
 
-// Lights
+// Heads Light
 
 const pointLight = new THREE.PointLight(0xffffff);
 pointLight.position.set(5, 5, 5);
@@ -35,7 +35,7 @@ pointLight.position.set(5, 5, 5);
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight);
 
-// Helpers
+// Light and grid Helpers
 
 // const lightHelper = new THREE.PointLightHelper(pointLight)
 // const gridHelper = new THREE.GridHelper(200, 50);
@@ -58,20 +58,20 @@ function addStar() {
 
 Array(200).fill().forEach(addStar);
 
-// Background
+// Head Main Background
 
 const spaceTexture = new THREE.TextureLoader().load('space.jpg');
 scene.background = spaceTexture;
 
-// Avatar
+// Dad n Me on Kalaw HailTop Hotel Memorable.
 
-const jeffTexture = new THREE.TextureLoader().load('dnme.JPG');
+const akkTexture = new THREE.TextureLoader().load('dnme.JPG');
 
-const jeff = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: jeffTexture }));
+const akk = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: akkTexture }));
 
-scene.add(jeff);
+scene.add(akk);
 
-// Moon
+// FullMoon Cocktails
 
 const moonTexture = new THREE.TextureLoader().load('moon.jpg');
 const normalTexture = new THREE.TextureLoader().load('normal.jpg');
@@ -89,10 +89,12 @@ scene.add(moon);
 moon.position.z = 30;
 moon.position.setX(-10);
 
-jeff.position.z = -5;
-jeff.position.x = 2;
+// akk position
 
-// Scroll Animation
+akk.position.z = -5;
+akk.position.x = 2;
+
+// When Scroll Animation
 
 function moveCamera() {
     const t = document.body.getBoundingClientRect().top;
@@ -100,8 +102,8 @@ function moveCamera() {
     moon.rotation.y += 0.075;
     moon.rotation.z += 0.05;
 
-    jeff.rotation.y += 0.01;
-    jeff.rotation.z += 0.01;
+    akk.rotation.y += 0.01;
+    akk.rotation.z += 0.01;
 
     camera.position.z = t * -0.01;
     camera.position.x = t * -0.0002;
@@ -111,7 +113,7 @@ function moveCamera() {
 document.body.onscroll = moveCamera;
 moveCamera();
 
-// Animation Loop
+// Sketch Animation with Loop
 
 function animate() {
     requestAnimationFrame(animate);
@@ -126,5 +128,5 @@ function animate() {
 
     renderer.render(scene, camera);
 }
-
+//Invoke to Ui
 animate();
