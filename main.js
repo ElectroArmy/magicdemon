@@ -2,6 +2,8 @@ import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+
+
 // Main Screen Engine Set
 
 const scene = new THREE.Scene();
@@ -14,18 +16,18 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(30);
+camera.position.setZ(20);
 camera.position.setX(-3);
 
 renderer.render(scene, camera);
 
 // Declare to Torus
 
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+const geometry = new THREE.TorusGeometry(10, 3, 15, 100);
 
 // Rotation Circle Color
 const material = new THREE.MeshStandardMaterial({
-    color: 0x7F8C8D
+    color: 0xDAA520
 });
 const torus = new THREE.Mesh(geometry, material);
 
@@ -33,10 +35,10 @@ scene.add(torus);
 
 // Heads Light
 
-const pointLight = new THREE.PointLight(0x138D75);
+const pointLight = new THREE.PointLight(0x89CFF0);
 pointLight.position.set(5, 5, 5);
 
-const ambientLight = new THREE.AmbientLight(0xECF0F1);
+const ambientLight = new THREE.AmbientLight(0xE2DFD2);
 scene.add(pointLight, ambientLight);
 
 // Light and grid Helpers
@@ -54,17 +56,17 @@ function addStar() {
 
     const [x, y, z] = Array(3)
         .fill()
-        .map(() => THREE.MathUtils.randFloatSpread(100));
+        .map(() => THREE.MathUtils.randFloatSpread(200));
 
     star.position.set(x, y, z);
     scene.add(star);
 }
 
-Array(200).fill().forEach(addStar);
+Array(400).fill().forEach(addStar);
 
-// Head Main Background
+// Main of Header Background pg
 
-const spaceTexture = new THREE.TextureLoader().load('space.jpg');
+const spaceTexture = new THREE.TextureLoader().load('bagan-temple.jpg');
 scene.background = spaceTexture;
 
 // Dad n Me on Kalaw HailTop Hotel Memorable.
@@ -87,8 +89,28 @@ const bird = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicM
 scene.add(bird);
 bird.position.z = 20;
 bird.position.setX(-10);
-// Box seen bird
+// Box seen bird end
 
+
+// Mr Robot in Box
+const robotTexture = new THREE.TextureLoader().load('bagan-monk-960x640.jpg');
+const robot = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: robotTexture }));
+
+scene.add(robot);
+robot.position.z = 10;
+robot.position.setX(-1);
+
+//Robot End
+
+//ak School life here
+const logoTexture = new THREE.TextureLoader().load('akschool.jpg');
+const logo = new THREE.Mesh(new THREE.BoxGeometry(2, 3, 2), new THREE.MeshBasicMaterial({ map: logoTexture }));
+
+scene.add(logo);
+logo.position.z = 20;
+logo.position.setX(3);
+
+// End mm logo
 
 const moon = new THREE.Mesh(
     new THREE.SphereGeometry(3, 32, 32),
@@ -96,6 +118,8 @@ const moon = new THREE.Mesh(
         map: moonTexture,
         normalMap: normalTexture,
         birdMap: birdTexture,
+        robotMap: robotTexture,
+        logoMap: logoTexture
     })
 );
 
@@ -120,6 +144,9 @@ function moveCamera() {
     akk.rotation.y += 0.01;
     akk.rotation.z += 0.01;
 
+    robot.rotation.y += 0.01;
+    robot.rotation.z += 0.01;
+
     camera.position.z = t * -0.01;
     camera.position.x = t * -0.0002;
     camera.rotation.y = t * -0.0002;
@@ -127,6 +154,23 @@ function moveCamera() {
 
 document.body.onscroll = moveCamera;
 moveCamera();
+
+//Test mp3 sounds
+// create an AudioListener and add it to the camera
+const listener = new THREE.AudioListener();
+camera.add(listener);
+
+// create a global audio source
+const sound = new THREE.Audio(listener);
+
+// Load a sound and set it as the Audio object's buffer
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load('SetMeFree.mp4', function(buffer) {
+    sound.setBuffer(buffer);
+    sound.setLoop(true);
+    sound.setVolume(3.0);
+    sound.play();
+});
 
 // Sketch Animation with Loop
 
