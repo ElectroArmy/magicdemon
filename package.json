@@ -6,7 +6,7 @@
         "build": "vite build",
         "serve": "vite preview",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "deploy": "gh-pages -d dists"
+        "deploy": "gh-page -d dists"
     },
     "devDependencies": {
         "vite": "^2.5.4"
