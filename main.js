@@ -22,26 +22,30 @@ renderer.render(scene, camera);
 // Declare to Torus
 
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
+
+// Rotation Circle Color
+const material = new THREE.MeshStandardMaterial({
+    color: 0x7F8C8D
+});
 const torus = new THREE.Mesh(geometry, material);
 
 scene.add(torus);
 
 // Heads Light
 
-const pointLight = new THREE.PointLight(0xffffff);
+const pointLight = new THREE.PointLight(0x138D75);
 pointLight.position.set(5, 5, 5);
 
-const ambientLight = new THREE.AmbientLight(0xffffff);
+const ambientLight = new THREE.AmbientLight(0xECF0F1);
 scene.add(pointLight, ambientLight);
 
 // Light and grid Helpers
 
-// const lightHelper = new THREE.PointLightHelper(pointLight)
-// const gridHelper = new THREE.GridHelper(200, 50);
-// scene.add(lightHelper, gridHelper)
+const lightHelper = new THREE.PointLightHelper(pointLight)
+const gridHelper = new THREE.GridHelper(200, 50);
+scene.add(lightHelper, gridHelper)
 
-// const controls = new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 
 function addStar() {
     const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -76,11 +80,22 @@ scene.add(akk);
 const moonTexture = new THREE.TextureLoader().load('moon.jpg');
 const normalTexture = new THREE.TextureLoader().load('normal.jpg');
 
+//Box in bird 
+const birdTexture = new THREE.TextureLoader().load('bird.jpg');
+const bird = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: birdTexture }));
+
+scene.add(bird);
+bird.position.z = 20;
+bird.position.setX(-10);
+// Box seen bird
+
+
 const moon = new THREE.Mesh(
     new THREE.SphereGeometry(3, 32, 32),
     new THREE.MeshStandardMaterial({
         map: moonTexture,
         normalMap: normalTexture,
+        birdMap: birdTexture,
     })
 );
 
@@ -89,7 +104,7 @@ scene.add(moon);
 moon.position.z = 30;
 moon.position.setX(-10);
 
-// akk position
+// Ar Kar Kyaw's  position
 
 akk.position.z = -5;
 akk.position.x = 2;
